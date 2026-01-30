@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chris Tian — FPGA & Digital Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">chris<span>tian</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-layout">
+        <div class="hero-text">
+          <p class="hero-greeting">Hey, I'm Chris.</p>
+          <h1 class="hero-title">
+            I design digital hardware &mdash;<br>
+            FPGAs, RTL, the stuff that <span class="accent">actually runs</span>.
+          </h1>
+          <p class="hero-body">
+            ECE student at USC building things close to the metal. Most of my
+            work lives in SystemVerilog targeting Xilinx and Intel parts &mdash;
+            from AI accelerators to pipelined RISC-V cores. When I'm not staring
+            at waveforms I'm probably writing CANbus firmware for our FSAE car.
+          </p>
+          <div class="hero-links">
+            <a href="https://github.com/Tian-Chris" target="_blank" rel="noopener">github</a>
+            <a href="https://linkedin.com/in/t-chris-tian" target="_blank" rel="noopener">linkedin</a>
+            <a href="mailto:tianchri@usc.edu">email</a>
+          </div>
+        </div>
+        <div class="headshot">
+          <!-- Replace this div with an <img> tag when you have a photo:
+               <img src="assets/headshot.jpg" alt="Chris Tian"> -->
+          <span class="headshot-placeholder">your photo<br>here</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title fade-in">About</h2>
+      <div class="about-content fade-in">
+        <p>
+          I'm an electrical and computer engineering student at USC (class of 2027)
+          who got into this because I wanted to understand how computers actually
+          work &mdash; all the way down. I ended up spending most of my time at
+          the register-transfer level, designing things like processor cores,
+          memory controllers, and AI accelerators.
+        </p>
+        <p>
+          I care about clean design, good timing closure, and writing testbenches
+          that actually catch bugs. I also think hardware engineers should have
+          nice websites.
+        </p>
+      </div>
+      <div class="skills fade-in">
+        <h3>Hardware Design</h3>
+        <ul class="skills-list">
+          <li>SystemVerilog</li>
+          <li>Verilog</li>
+          <li>VHDL</li>
+          <li>UVM</li>
+          <li>RTL Design</li>
+          <li>Testbench Dev</li>
+        </ul>
+      </div>
+      <div class="skills fade-in">
+        <h3>Tools</h3>
+        <ul class="skills-list">
+          <li>Vivado</li>
+          <li>QuestaSim</li>
+          <li>Verilator</li>
+          <li>GTKWave</li>
+          <li>Yosys</li>
+          <li>SymbiYosys</li>
+          <li>OpenSTA</li>
+          <li>Vitis HLS</li>
+        </ul>
+      </div>
+      <div class="skills fade-in">
+        <h3>Protocols</h3>
+        <ul class="skills-list">
+          <li>AXI4</li>
+          <li>PCIe</li>
+          <li>UART</li>
+          <li>SPI</li>
+          <li>I2C</li>
+          <li>CAN</li>
+        </ul>
+      </div>
+      <div class="skills fade-in">
+        <h3>Programming</h3>
+        <ul class="skills-list">
+          <li>C/C++</li>
+          <li>Python</li>
+          <li>Tcl</li>
+          <li>MATLAB</li>
+          <li>Git</li>
+          <li>Linux</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience" id="experience">
+    <div class="container">
+      <h2 class="section-title fade-in">Experience</h2>
+      <div class="exp-list">
+        <div class="exp-item fade-in">
+          <div class="exp-header">
+            <span class="exp-role">Researcher</span>
+            <span class="exp-date">Jan 2026 &ndash; Present</span>
+          </div>
+          <div class="exp-org">FPGA / Parallel Computing Lab &mdash; USC</div>
+          <p class="exp-desc">
+            Research on Large Concept Models and Mixture of Experts AI architectures.
+            Designing hardware-software co-design solutions implemented in Verilog RTL
+            and deployed on FPGA.
+          </p>
+        </div>
+        <div class="exp-item fade-in">
+          <div class="exp-header">
+            <span class="exp-role">Lead</span>
+            <span class="exp-date">Aug 2024 &ndash; Present</span>
+          </div>
+          <div class="exp-org">USC FSAE Electric Team</div>
+          <p class="exp-desc">
+            Writing CANbus firmware on STM32 for motor controller comms, ADC/DAC
+            data acquisition, and FreeRTOS multitasking for concurrent sensor and
+            CAN communication.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <h2 class="section-title fade-in">Projects</h2>
+      <div class="projects-grid fade-in">
+
+        <a href="projects/fpga-accelerator.html" class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">FPGA AI Hardware Accelerator</h3>
+            <span class="project-arrow">&rarr;</span>
+          </div>
+          <p class="project-desc">
+            Pipelined systolic array achieving 1 output/cycle for FP16 matrix
+            multiplication. Parameterizable N&times;N arrays with AXI4 BRAM interface.
+            Synthesized and closed timing in Vivado.
+          </p>
+          <div class="project-tags">
+            <span class="tag">SystemVerilog</span>
+            <span class="tag">Xilinx</span>
+            <span class="tag">AXI4</span>
+            <span class="tag">Vitis HLS</span>
+          </div>
+        </a>
+
+        <a href="projects/risc-v-cpu.html" class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">5-Stage Pipelined RISC-V CPU</h3>
+            <span class="project-arrow">&rarr;</span>
+          </div>
+          <p class="project-desc">
+            RV32I + Zicsr processor with hazard detection, data forwarding, GShare
+            branch prediction, SV32 virtual memory, and UART I/O. Passes official
+            compliance tests and boots xv6.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Verilog</span>
+            <span class="tag">RV32I</span>
+            <span class="tag">UART</span>
+          </div>
+        </a>
+
+        <a href="projects/axi4-slave.html" class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">AXI4 Slave &mdash; Design & UVM Verification</h3>
+            <span class="project-arrow">&rarr;</span>
+          </div>
+          <p class="project-desc">
+            AXI4-compliant slave (1R/1W per cycle), formally verified with SymbiYosys.
+            Full UVM environment with driver, monitor, scoreboard, and constrained
+            random tests in QuestaSim.
+          </p>
+          <div class="project-tags">
+            <span class="tag">SystemVerilog</span>
+            <span class="tag">UVM</span>
+            <span class="tag">SymbiYosys</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="https://github.com/Tian-Chris" target="_blank" rel="noopener">github</a>
+          <a href="https://linkedin.com/in/t-chris-tian" target="_blank" rel="noopener">linkedin</a>
+          <a href="mailto:tianchri@usc.edu">email</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Chris Tian</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

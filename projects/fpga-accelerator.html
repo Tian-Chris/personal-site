@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPGA AI Accelerator — Chris Tian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-detail { padding: 100px 0 80px; }
+    .project-detail h1 {
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .project-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 32px; }
+    .project-detail-body {
+      max-width: 600px; color: var(--text-muted);
+      font-size: 0.9rem; line-height: 1.8;
+    }
+    .project-detail-body p { margin-bottom: 16px; }
+    .project-detail-body h2 {
+      font-size: 1rem; font-weight: 600; color: var(--text-mid);
+      margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .image-placeholder {
+      width: 100%; max-width: 600px; height: 260px;
+      background: var(--bg-card); border: 1px dashed rgba(0,0,0,0.1);
+      border-radius: var(--radius); display: flex; align-items: center;
+      justify-content: center; color: var(--text-muted); font-size: 0.8rem;
+      margin: 20px 0;
+    }
+    .back-link {
+      display: inline-block; margin-top: 36px;
+      color: var(--text-muted); font-size: 0.85rem;
+      transition: color var(--transition);
+    }
+    .back-link:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">chris<span>tian</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="project-detail">
+    <div class="container">
+      <h1>FPGA AI Hardware Accelerator</h1>
+      <div class="project-meta">
+        <span class="tag">SystemVerilog</span>
+        <span class="tag">Xilinx</span>
+        <span class="tag">AXI4</span>
+        <span class="tag">Vitis HLS</span>
+      </div>
+
+      <div class="project-detail-body">
+        <p>
+          A pipelined systolic array AI accelerator designed for FP16 matrix
+          multiplication, achieving 1 output per cycle throughput.
+        </p>
+
+        <h2>Architecture</h2>
+        <p>
+          The core is a parameterizable systolic array &mdash; the SystemVerilog
+          generator can produce any N&times;N configuration with automatic data
+          forwarding between processing elements. FP16 multiply-accumulate blocks
+          were generated using Vitis HLS.
+        </p>
+        <p>
+          The accelerator connects to on-chip BRAM through a Xilinx AXI BRAM
+          Controller, bridging the systolic array and memory over a standard
+          AXI4 interface.
+        </p>
+
+        <div class="image-placeholder">block diagram / resource utilization</div>
+
+        <h2>Toolchain</h2>
+        <p>
+          Used Verilator, Yosys, and OpenSTA for rapid iteration and early timing
+          analysis during development. Final synthesis and timing closure done in
+          Vivado targeting Xilinx silicon.
+        </p>
+
+        <h2>Results</h2>
+        <p>
+          Sustained 1 output/cycle throughput for matrix multiply operations.
+          Parameterizable design allows scaling to different array sizes depending
+          on target FPGA resource budget.
+        </p>
+      </div>
+
+      <a href="../index.html#projects" class="back-link">&larr; back to projects</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="https://github.com/Tian-Chris" target="_blank" rel="noopener">github</a>
+          <a href="https://linkedin.com/in/t-chris-tian" target="_blank" rel="noopener">linkedin</a>
+          <a href="mailto:tianchri@usc.edu">email</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Chris Tian</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

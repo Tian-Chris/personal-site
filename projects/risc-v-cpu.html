@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RISC-V CPU — Chris Tian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-detail { padding: 100px 0 80px; }
+    .project-detail h1 {
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .project-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 32px; }
+    .project-detail-body {
+      max-width: 600px; color: var(--text-muted);
+      font-size: 0.9rem; line-height: 1.8;
+    }
+    .project-detail-body p { margin-bottom: 16px; }
+    .project-detail-body h2 {
+      font-size: 1rem; font-weight: 600; color: var(--text-mid);
+      margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .image-placeholder {
+      width: 100%; max-width: 600px; height: 260px;
+      background: var(--bg-card); border: 1px dashed rgba(0,0,0,0.1);
+      border-radius: var(--radius); display: flex; align-items: center;
+      justify-content: center; color: var(--text-muted); font-size: 0.8rem;
+      margin: 20px 0;
+    }
+    .back-link {
+      display: inline-block; margin-top: 36px;
+      color: var(--text-muted); font-size: 0.85rem;
+      transition: color var(--transition);
+    }
+    .back-link:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">chris<span>tian</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="project-detail">
+    <div class="container">
+      <h1>5-Stage Pipelined RISC-V CPU</h1>
+      <div class="project-meta">
+        <span class="tag">Verilog</span>
+        <span class="tag">RV32I</span>
+        <span class="tag">Zicsr</span>
+        <span class="tag">UART</span>
+      </div>
+
+      <div class="project-detail-body">
+        <p>
+          A pipelined processor implementing the RV32I and Zicsr instruction sets,
+          complete with hazard detection, branch prediction, and virtual memory.
+        </p>
+
+        <h2>Architecture</h2>
+        <p>
+          Classic 5-stage pipeline (IF/ID/EX/MEM/WB) with full data forwarding
+          and a GShare branch predictor for reducing pipeline stalls. The memory
+          subsystem uses SV32 virtual memory with a unified address space.
+        </p>
+        <p>
+          Includes a CSR register file with privilege levels and trap/interrupt
+          handling for exception management. A memory-mapped UART peripheral
+          provides serial I/O.
+        </p>
+
+        <div class="image-placeholder">pipeline diagram / waveform capture</div>
+
+        <h2>Verification</h2>
+        <p>
+          Automated verification flow using Python and Tcl to compile hex test
+          files and run batch simulations in Vivado. Passed the full suite of
+          official RISC-V compliance tests.
+        </p>
+
+        <h2>Results</h2>
+        <p>
+          Successfully boots and runs xv6 operating system, confirming correct
+          behavior of the pipeline, memory system, interrupt handling, and
+          privilege transitions.
+        </p>
+      </div>
+
+      <a href="../index.html#projects" class="back-link">&larr; back to projects</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="https://github.com/Tian-Chris" target="_blank" rel="noopener">github</a>
+          <a href="https://linkedin.com/in/t-chris-tian" target="_blank" rel="noopener">linkedin</a>
+          <a href="mailto:tianchri@usc.edu">email</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Chris Tian</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

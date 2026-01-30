@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AXI4 Slave — Chris Tian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-detail { padding: 100px 0 80px; }
+    .project-detail h1 {
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .project-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 32px; }
+    .project-detail-body {
+      max-width: 600px; color: var(--text-muted);
+      font-size: 0.9rem; line-height: 1.8;
+    }
+    .project-detail-body p { margin-bottom: 16px; }
+    .project-detail-body h2 {
+      font-size: 1rem; font-weight: 600; color: var(--text-mid);
+      margin: 28px 0 10px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .image-placeholder {
+      width: 100%; max-width: 600px; height: 260px;
+      background: var(--bg-card); border: 1px dashed rgba(0,0,0,0.1);
+      border-radius: var(--radius); display: flex; align-items: center;
+      justify-content: center; color: var(--text-muted); font-size: 0.8rem;
+      margin: 20px 0;
+    }
+    .back-link {
+      display: inline-block; margin-top: 36px;
+      color: var(--text-muted); font-size: 0.85rem;
+      transition: color var(--transition);
+    }
+    .back-link:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">chris<span>tian</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="project-detail">
+    <div class="container">
+      <h1>AXI4 Slave &mdash; Design & UVM Verification</h1>
+      <div class="project-meta">
+        <span class="tag">SystemVerilog</span>
+        <span class="tag">UVM</span>
+        <span class="tag">SymbiYosys</span>
+        <span class="tag">QuestaSim</span>
+      </div>
+
+      <div class="project-detail-body">
+        <p>
+          An AXI4-compliant slave peripheral capable of sustaining 1 read and
+          1 write per cycle, with both formal and simulation-based verification.
+        </p>
+
+        <h2>Design</h2>
+        <p>
+          The slave implements the full AXI4 handshake protocol with proper
+          ordering guarantees. Designed for integration into larger SoC designs
+          where protocol compliance is critical.
+        </p>
+
+        <h2>Formal Verification</h2>
+        <p>
+          Used SymbiYosys for formal property checking, proving protocol
+          compliance and absence of deadlocks across all reachable states.
+        </p>
+
+        <div class="image-placeholder">UVM testbench architecture diagram</div>
+
+        <h2>UVM Environment</h2>
+        <p>
+          Built a complete UVM verification environment in QuestaSim: driver,
+          monitor, scoreboard, sequences, and coverage collectors. Constrained
+          random tests verified handshake compliance, burst ordering, and
+          edge cases under randomized traffic patterns.
+        </p>
+      </div>
+
+      <a href="../index.html#projects" class="back-link">&larr; back to projects</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="https://github.com/Tian-Chris" target="_blank" rel="noopener">github</a>
+          <a href="https://linkedin.com/in/t-chris-tian" target="_blank" rel="noopener">linkedin</a>
+          <a href="mailto:tianchri@usc.edu">email</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Chris Tian</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
