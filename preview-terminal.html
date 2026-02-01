@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Claude Terminal Theme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg-card: #161616;
+      --bg-surface: #1a1a1a;
+      --accent: #d4a574;
+      --accent-dim: rgba(212, 165, 116, 0.12);
+      --blue: #7aa2f7;
+      --green: #73daca;
+      --yellow: #e0af68;
+      --magenta: #bb9af7;
+      --red: #f7768e;
+      --cyan: #89ddff;
+      --text: #c9c9c9;
+      --text-bright: #e8e8e8;
+      --text-muted: #585858;
+      --border-char: #333;
+      --font: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      font-size: 13.5px;
+    }
+
+    ::selection {
+      background: rgba(122, 162, 247, 0.3);
+      color: #fff;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .terminal {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 16px 24px 80px;
+    }
+
+    /* ── Top bar (fake window chrome) ─── */
+    .window-bar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      z-index: 100;
+      background: #111;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .window-dots {
+      position: absolute;
+      left: 16px;
+      display: flex;
+      gap: 7px;
+    }
+
+    .window-dots span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .dot-red { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green { background: #28c840; }
+
+    .window-title { color: var(--text-muted); }
+
+    /* ── Prompt / command blocks ─── */
+    .prompt-line {
+      margin-top: 28px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .prompt-marker {
+      color: var(--accent);
+      font-weight: 600;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .prompt-cmd {
+      color: var(--text-bright);
+      font-weight: 600;
+    }
+
+    .prompt-arg {
+      color: var(--blue);
+    }
+
+    .prompt-flag {
+      color: var(--green);
+    }
+
+    /* ── Output blocks ─── */
+    .output {
+      padding: 12px 0 0 20px;
+      color: var(--text);
+    }
+
+    .output p {
+      margin-bottom: 8px;
+      max-width: 620px;
+    }
+
+    /* ── Box-drawn sections ─── */
+    .box {
+      margin: 8px 0 0 20px;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .box-header {
+      padding: 10px 16px;
+      border-bottom: 1px solid #2a2a2a;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #131313;
+    }
+
+    .box-body {
+      padding: 14px 16px;
+    }
+
+    /* ── Hero area ─── */
+    .hero-block {
+      padding-top: 52px;
+    }
+
+    .hero-block .output {
+      padding-left: 20px;
+    }
+
+    .hero-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 4px;
+    }
+
+    .hero-tagline {
+      color: var(--accent);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .hero-bio {
+      color: var(--text-muted);
+      max-width: 580px;
+      margin-bottom: 20px;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+
+    .hero-links-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-link {
+      color: var(--blue);
+      padding: 3px 10px;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .hero-link:hover {
+      background: rgba(122, 162, 247, 0.1);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    /* ── Divider ─── */
+    .divider {
+      margin: 32px 0 0;
+      border: none;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    /* ── Skills tags ─── */
+    .skill-group {
+      margin-bottom: 14px;
+    }
+
+    .skill-group-label {
+      color: var(--green);
+      font-size: 0.78rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-tag {
+      font-size: 0.78rem;
+      padding: 2px 8px;
+      border-radius: 3px;
+      color: var(--text);
+      background: #1c1c1c;
+      border: 1px solid #2a2a2a;
+    }
+
+    /* ── Experience items ─── */
+    .exp-entry {
+      padding: 12px 16px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .exp-entry:last-child {
+      border-bottom: none;
+    }
+
+    .exp-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .exp-role-text {
+      color: var(--text-bright);
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    .exp-date-text {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      flex-shrink: 0;
+    }
+
+    .exp-org-text {
+      color: var(--magenta);
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+
+    .exp-desc-text {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.65;
+    }
+
+    /* ── Project cards ─── */
+    .project-entry {
+      display: block;
+      padding: 14px 16px;
+      border-bottom: 1px solid #1e1e1e;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .project-entry:last-child {
+      border-bottom: none;
+    }
+
+    .project-entry:hover {
+      background: #1a1a1a;
+    }
+
+    .project-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .project-name {
+      color: var(--text-bright);
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    .project-arrow-char {
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .project-entry:hover .project-arrow-char {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    .project-desc-text {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .project-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ptag {
+      font-size: 0.72rem;
+      padding: 1px 7px;
+      border-radius: 3px;
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── Footer ─── */
+    .footer-block {
+      margin-top: 48px;
+      padding-top: 16px;
+      border-top: 1px solid #1e1e1e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 20px;
+    }
+
+    .footer-links-row {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-links-row a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links-row a:hover {
+      color: var(--blue);
+    }
+
+    .footer-copy-text {
+      font-size: 0.72rem;
+      color: #2a2a2a;
+    }
+
+    /* ── Cursor blink ─── */
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background: var(--accent);
+      margin-left: 4px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* ── Status line ─── */
+    .status-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #161616;
+      border-top: 1px solid #222;
+      padding: 6px 24px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      z-index: 100;
+    }
+
+    .status-left { display: flex; gap: 16px; }
+    .status-accent { color: var(--accent); }
+    .status-green { color: var(--green); }
+
+    /* ── Preview banner ─── */
+    .preview-banner {
+      position: fixed;
+      top: 42px;
+      right: 16px;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-family: var(--font);
+      font-weight: 600;
+      z-index: 200;
+    }
+
+    /* ── Responsive ─── */
+    @media (max-width: 600px) {
+      .terminal { padding: 16px 14px 80px; }
+      .output { padding-left: 12px; }
+      .box { margin-left: 12px; }
+      .hero-block .output { padding-left: 12px; }
+      .footer-block { padding-left: 12px; flex-direction: column; gap: 8px; align-items: flex-start; }
+      .exp-row { flex-direction: column; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Window chrome -->
+  <div class="window-bar">
+    <div class="window-dots">
+      <span class="dot-red"></span>
+      <span class="dot-yellow"></span>
+      <span class="dot-green"></span>
+    </div>
+    <span class="window-title">chris@portfolio ~ </span>
+  </div>
+
+  <div class="preview-banner">PREVIEW: Terminal Theme</div>
+
+  <div class="terminal">
+
+    <!-- Hero -->
+    <div class="hero-block">
+      <div class="prompt-line">
+        <span class="prompt-marker">$</span>
+        <span class="prompt-cmd">whoami</span>
+        <span class="prompt-flag">--verbose</span>
+      </div>
+      <div class="output">
+        <div class="hero-name">Chris Tian</div>
+        <div class="hero-tagline">FPGA & Digital Design &mdash; the stuff that actually runs.</div>
+        <p class="hero-bio">
+          ECE student at USC building things close to the metal. Most of my
+          work lives in SystemVerilog targeting Xilinx and Intel parts &mdash;
+          from AI accelerators to pipelined RISC-V cores. When I'm not staring
+          at waveforms I'm probably writing CANbus firmware for our FSAE car.
+        </p>
+        <div class="hero-links-row">
+          <a href="https://github.com/Tian-Chris" target="_blank" rel="noopener" class="hero-link">github</a>
+          <a href="https://linkedin.com/in/t-chris-tian" target="_blank" rel="noopener" class="hero-link">linkedin</a>
+          <a href="mailto:tianchri@usc.edu" class="hero-link">email</a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- About -->
+    <div class="prompt-line">
+      <span class="prompt-marker">$</span>
+      <span class="prompt-cmd">cat</span>
+      <span class="prompt-arg">about.md</span>
+    </div>
+    <div class="output">
+      <p>
+        I'm an electrical and computer engineering student at USC (class of 2027)
+        who got into this because I wanted to understand how computers actually
+        work &mdash; all the way down. I ended up spending most of my time at
+        the register-transfer level, designing things like processor cores,
+        memory controllers, and AI accelerators.
+      </p>
+      <p>
+        I care about clean design, good timing closure, and writing testbenches
+        that actually catch bugs. I also think hardware engineers should have
+        nice websites.
+      </p>
+    </div>
+
+    <!-- Skills -->
+    <div class="prompt-line">
+      <span class="prompt-marker">$</span>
+      <span class="prompt-cmd">ls</span>
+      <span class="prompt-arg">skills/</span>
+    </div>
+    <div class="box">
+      <div class="box-body">
+        <div class="skill-group">
+          <div class="skill-group-label">hardware-design/</div>
+          <div class="skill-tags">
+            <span class="skill-tag">SystemVerilog</span>
+            <span class="skill-tag">Verilog</span>
+            <span class="skill-tag">VHDL</span>
+            <span class="skill-tag">UVM</span>
+            <span class="skill-tag">RTL Design</span>
+            <span class="skill-tag">Testbench Dev</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">tools/</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Vivado</span>
+            <span class="skill-tag">QuestaSim</span>
+            <span class="skill-tag">Verilator</span>
+            <span class="skill-tag">GTKWave</span>
+            <span class="skill-tag">Yosys</span>
+            <span class="skill-tag">SymbiYosys</span>
+            <span class="skill-tag">OpenSTA</span>
+            <span class="skill-tag">Vitis HLS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">protocols/</div>
+          <div class="skill-tags">
+            <span class="skill-tag">AXI4</span>
+            <span class="skill-tag">PCIe</span>
+            <span class="skill-tag">UART</span>
+            <span class="skill-tag">SPI</span>
+            <span class="skill-tag">I2C</span>
+            <span class="skill-tag">CAN</span>
+          </div>
+        </div>
+        <div class="skill-group" style="margin-bottom:0">
+          <div class="skill-group-label">programming/</div>
+          <div class="skill-tags">
+            <span class="skill-tag">C/C++</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Tcl</span>
+            <span class="skill-tag">MATLAB</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Linux</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Experience -->
+    <div class="prompt-line">
+      <span class="prompt-marker">$</span>
+      <span class="prompt-cmd">git log</span>
+      <span class="prompt-arg">experience</span>
+      <span class="prompt-flag">--oneline</span>
+    </div>
+    <div class="box">
+      <div class="box-header">experience</div>
+      <div class="exp-entry">
+        <div class="exp-row">
+          <span class="exp-role-text">Researcher</span>
+          <span class="exp-date-text">Jan 2026 &ndash; Present</span>
+        </div>
+        <div class="exp-org-text">FPGA / Parallel Computing Lab &mdash; USC</div>
+        <p class="exp-desc-text">
+          Research on Large Concept Models and Mixture of Experts AI architectures.
+          Designing hardware-software co-design solutions implemented in Verilog RTL
+          and deployed on FPGA.
+        </p>
+      </div>
+      <div class="exp-entry">
+        <div class="exp-row">
+          <span class="exp-role-text">Lead</span>
+          <span class="exp-date-text">Aug 2024 &ndash; Present</span>
+        </div>
+        <div class="exp-org-text">USC FSAE Electric Team</div>
+        <p class="exp-desc-text">
+          Writing CANbus firmware on STM32 for motor controller comms, ADC/DAC
+          data acquisition, and FreeRTOS multitasking for concurrent sensor and
+          CAN communication.
+        </p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Projects -->
+    <div class="prompt-line">
+      <span class="prompt-marker">$</span>
+      <span class="prompt-cmd">ls</span>
+      <span class="prompt-arg">projects/</span>
+      <span class="prompt-flag">-la</span>
+    </div>
+    <div class="box">
+      <div class="box-header">projects</div>
+      <a href="projects/fpga-accelerator.html" class="project-entry">
+        <div class="project-row">
+          <span class="project-name">FPGA AI Hardware Accelerator</span>
+          <span class="project-arrow-char">&rarr;</span>
+        </div>
+        <p class="project-desc-text">
+          Pipelined systolic array achieving 1 output/cycle for FP16 matrix
+          multiplication. Parameterizable N&times;N arrays with AXI4 BRAM interface.
+          Synthesized and closed timing in Vivado.
+        </p>
+        <div class="project-tags-row">
+          <span class="ptag">SystemVerilog</span>
+          <span class="ptag">Xilinx</span>
+          <span class="ptag">AXI4</span>
+          <span class="ptag">Vitis HLS</span>
+        </div>
+      </a>
+      <a href="projects/risc-v-cpu.html" class="project-entry">
+        <div class="project-row">
+          <span class="project-name">5-Stage Pipelined RISC-V CPU</span>
+          <span class="project-arrow-char">&rarr;</span>
+        </div>
+        <p class="project-desc-text">
+          RV32I + Zicsr processor with hazard detection, data forwarding, GShare
+          branch prediction, SV32 virtual memory, and UART I/O. Passes official
+          compliance tests and boots xv6.
+        </p>
+        <div class="project-tags-row">
+          <span class="ptag">Verilog</span>
+          <span class="ptag">RV32I</span>
+          <span class="ptag">UART</span>
+        </div>
+      </a>
+      <a href="projects/axi4-slave.html" class="project-entry">
+        <div class="project-row">
+          <span class="project-name">AXI4 Slave &mdash; Design & UVM Verification</span>
+          <span class="project-arrow-char">&rarr;</span>
+        </div>
+        <p class="project-desc-text">
+          AXI4-compliant slave (1R/1W per cycle), formally verified with SymbiYosys.
+          Full UVM environment with driver, monitor, scoreboard, and constrained
+          random tests in QuestaSim.
+        </p>
+        <div class="project-tags-row">
+          <span class="ptag">SystemVerilog</span>
+          <span class="ptag">UVM</span>
+          <span class="ptag">SymbiYosys</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Trailing prompt -->
+    <div class="prompt-line" style="margin-top: 32px;">
+      <span class="prompt-marker">$</span>
+      <span class="cursor"></span>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-block">
+      <div class="footer-links-row">
+        <a href="https://github.com/Tian-Chris" target="_blank" rel="noopener">github</a>
+        <a href="https://linkedin.com/in/t-chris-tian" target="_blank" rel="noopener">linkedin</a>
+        <a href="mailto:tianchri@usc.edu">email</a>
+      </div>
+      <span class="footer-copy-text">&copy; 2026 Chris Tian</span>
+    </div>
+
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <div class="status-left">
+      <span class="status-accent">chris@portfolio</span>
+      <span>~/personal-site</span>
+      <span class="status-green">main</span>
+    </div>
+    <span>bash</span>
+  </div>
+
+</body>
+</html>
